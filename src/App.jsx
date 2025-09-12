@@ -5,7 +5,7 @@ import JobsPage from "./components/JobsPage"
 import JobDetailPage from "./components/JobDetailPage"
 import ContactPage from "./components/ContactPage"
 import Login from "./components/Login"
-import Register from "./components/REgister"
+import Register from "./components/register_temp"
 import Institutions from "./components/Institutions"  
 import Layout from "./components/layout/Layout"; // adjust the path if needed
 
@@ -23,7 +23,7 @@ function App() {
           <Route path="/institutions" element={<Institutions />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register_temp" element={<Register />} />
         </Routes>
       </div>
       </Layout>
