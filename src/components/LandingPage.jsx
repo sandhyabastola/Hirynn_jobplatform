@@ -2,7 +2,10 @@ import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Facebook, Twitter, Linkedin } from "lucide-react";
+import { User, FileText } from "lucide-react";
+
 import { Mail, Phone } from "lucide-react";
+import Layout from "../components/layout/Layout"; 
 import {
   Card,
   CardContent,
@@ -20,7 +23,7 @@ import {
   CheckCircle,
   FileText as Document,
   LineChart,
-  MessageCircle,
+  MessageSquare,   // ✅ fixed here (was MessagesSquare)
   ArrowRight,
   Search,
   Briefcase,
@@ -28,83 +31,39 @@ import {
   Download,
   Play,
   Check,
+  BarChart3,
 } from "lucide-react";
 
 const LandingPage = () => {
+  const steps = [
+    {
+      icon: <User className="w-6 h-6 text-red-500" />,
+      title: "Account",
+      description:
+        "You have to create an account here with the details and they must be true to get the jobs quickly and work effectively.",
+    },
+    {
+      icon: <Search className="w-6 h-6 text-blue-500" />,
+      title: "Search Job",
+      description:
+        "Search the job according to your interests and experiences and that matches the requirements for the job.",
+    },
+    {
+      icon: <FileText className="w-6 h-6 text-yellow-500" />,
+      title: "CV/Resume",
+      description:
+        "Now you have to fill the given job applications with your recent CV/Resume where you are interested and will help you grow.",
+    },
+    {
+      icon: <CheckCircle className="w-6 h-6 text-green-500" />,
+      title: "Apply",
+      description:
+        "Apply to the job applications and make sure to check the location and time to not face problems later.",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <img src="/logo.png" alt="Hirynn Logo" className="h-5 w-5" />
-                </div>
-                <span className="text-xl font-bold text-foreground">Hirynn</span>
-              </div>
-            </div>
-
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link
-                to="/"
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-              >
-                Home
-              </Link>
-              <Link
-                to="/jobs"
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
-                Jobs
-              </Link>
-              <Link
-                to="/institutions"
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
-                Institutions
-              </Link>
-              <Link
-                to="/about"
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
-                About Us
-              </Link>
-              <Link
-                to="/contact"
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
-                Contact Us
-              </Link>
-            </nav>
-
-            {/* Auth buttons */}
-            <div className="flex items-center space-x-4">
-              <Link to="/login">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="bg-blue-600 hover:bg-blue-700 text-white text-base"
-                >
-                  Login
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button
-                  size="sm"
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  Register
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="py-20 lg:py-32 bg-gradient-to-b from-blue-50/50 to-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -130,7 +89,11 @@ const LandingPage = () => {
                   Join for Free
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-                <Button variant="outline" size="lg" className="text-base bg-transparent">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="text-base bg-transparent"
+                >
                   Find Jobs
                 </Button>
               </div>
@@ -152,6 +115,93 @@ const LandingPage = () => {
                 src="/professional-team-working-together-illustration.jpg"
                 alt="Professional team working together"
                 className="w-full h-auto rounded-2xl shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-blue-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-lg text-gray-600 mb-2">How it works?</p>
+          <h2 className="text-3xl lg:text-4xl font-bold mb-12">
+            Follow <span className="text-blue-600">Easy</span> 4 Steps
+          </h2>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {steps.map((step, index) => (
+              <div
+                key={index}
+                className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow text-left"
+              >
+                <div className="flex items-center mb-4">{step.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                <p className="text-gray-600 text-sm">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Help Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6 lg:px-12">
+          {/* Heading */}
+          <h2 className="text-4xl font-bold text-gray-800 mb-10">
+            We always help to help you with!
+          </h2>
+
+          {/* Content Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            {/* Left side - Features */}
+            <div className="space-y-6">
+              <Card className="p-4 flex items-start gap-3 shadow-md">
+                <BarChart3 className="w-8 h-8 text-primary" />
+                <CardContent className="p-0">
+                  <h3 className="font-semibold text-lg text-gray-800">
+                    Enhance your career
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Hirynn helps you discover the right opportunities, connect with
+                    trusted institutions, and grow as a professional.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="p-4 flex items-start gap-3 shadow-md">
+                <MessageSquare className="w-8 h-8 text-blue-500" />
+                <CardContent className="p-0">
+                  <h3 className="font-semibold text-lg text-gray-800">
+                    Communication
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Enhance your career with personalized job matches and professional
+                    growth tools. Hirynn connects educators with the right opportunities
+                    to achieve success.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="p-4 flex items-start gap-3 shadow-md">
+                <CheckCircle className="w-8 h-8 text-green-500" />
+                <CardContent className="p-0">
+                  <h3 className="font-semibold text-lg text-gray-800">Smart Jobs</h3>
+                  <p className="text-gray-600 text-sm">
+                    Hirynn helps you discover opportunities tailored to your skills and
+                    aspirations, making your job search faster, easier, and more effective
+                    for long-term career growth.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Right side - Image */}
+            <div className="flex justify-center">
+              <img
+                src="help_illustration.png"
+                alt="Help illustration"
+                className="w-[454px] h-[390px] object-contain"
               />
             </div>
           </div>
@@ -188,94 +238,6 @@ const LandingPage = () => {
                 Search Now
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <section className="bg-gray-900 text-white py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            <div className="space-y-3">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <img src="/logo.png" alt="Hirynn Logo" className="h-5 w-5" />
-                </div>
-                <span className="text-xl font-bold">Hirynn</span>
-              </div>
-              <p className="text-gray-400 text-sm">
-                Empowering teachers and learners with professional growth
-                opportunities. Explore teaching jobs, connect with top
-                institutions, and access resources to enhance your career
-                anytime, anywhere.
-              </p>
-              <div className="text-gray-400 text-sm">
-                 <h1 className="font-semibold text-lg"> Download our App</h1>
-                <p>Get the Hirynn mobile app for learning on the go</p>
-                <img src="/pngwing.com 3.png" alt="Google Play" className="h-10 w-120" />
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <h1 className="font-semibold text-lg">Other Links</h1>
-              <div className="space-y-2">
-                {["C.V"].map((link) => (
-                  <a
-                    key={link}
-                    href="#"
-                    className="block text-gray-400 hover:text-white transition-colors text-sm"
-                  >
-                    {link}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <h1 className="font-semibold text-lg">Get in Touch</h1>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <Mail className="w-5 h-5 text-primary" />
-                  <a href="mailto:support@hirynn.com" className="text-gray-400 hover:text-white transition-colors">
-                    support@hirynn.com
-                  </a>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Phone className="w-5 h-5 text-primary" />
-                  <a href="tel:+9779808349417" className="text-gray-400 hover:text-white transition-colors">
-                    9808349417
-                  </a>
-                </div>
-              </div>
-            
-              <h1 className="font-semibold text-lg">Follow Us</h1>
-              <div className="flex gap-4 mt-4 md:mt-0">
-                <a
-                  href="https://www.facebook.com/"
-                  className="text-white hover:text-blue-400 transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://twitter.com/"
-                  className="text-white hover:text-blue-400 transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Twitter className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/"
-                  className="text-white hover:text-blue-400 transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              </div>
             </div>
           </div>
         </div>
