@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "./ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Badge } from "./ui/badge"
+import Layout from "../components/layout/Layout"; // adjust the path based on your folder structure
 import { Separator } from "./ui/separator"
 import {
   ArrowLeft,
@@ -20,10 +21,9 @@ import {
   Star,
 } from "lucide-react"
 
-const JobDetailPage = () => {
-  const [isBookmarked, setIsBookmarked] = useState(false)
-
-  const job = {
+const JobDetailPage = ({ job: propJob, onBack }) => {
+  // Use the passed-in job prop if available; otherwise, fallback to default
+  const job = propJob || {
     id: 1,
     title: "Senior Frontend Developer",
     company: "TechCorp Inc.",
@@ -73,6 +73,8 @@ As a Senior Frontend Developer, you'll be responsible for architecting and imple
     },
   }
 
+  const [isBookmarked, setIsBookmarked] = useState(false)
+
   const relatedJobs = [
     {
       id: 2,
@@ -102,50 +104,6 @@ As a Senior Frontend Developer, you'll be responsible for architecting and imple
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">H</span>
-                </div>
-                <span className="text-xl font-bold text-foreground">Hirynn</span>
-              </div>
-            </div>
-
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="/" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                Home
-              </a>
-              <a
-                href="/about"
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
-                About
-              </a>
-              <a href="/jobs" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-                Jobs
-              </a>
-              <a
-                href="/contact"
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
-                Contact
-              </a>
-            </nav>
-
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
-                Sign In
-              </Button>
-              <Button size="sm">Get Started</Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
@@ -373,6 +331,17 @@ As a Senior Frontend Developer, you'll be responsible for architecting and imple
           </div>
         </div>
       </div>
+      <div className="min-h-screen bg-background">
+      {onBack && (
+        <Button variant="ghost" onClick={onBack}>
+          ← Back to Jobs
+        </Button>
+      )}
+      <h1 className="text-3xl font-bold">{job.title}</h1>
+      <p>{job.description}</p>
+      {/* Rest of your JobDetailPage content */}
+    </div>
+     
     </div>
   )
 }
