@@ -7,8 +7,7 @@ import ContactPage from "./components/ContactPage"
 import Login from "./components/Login"
 import Register from "./components/register_temp"
 import Institutions from "./components/Institutions"  
-import Layout from "./components/layout/Layout"; // adjust the path if needed
-
+import Layout from "./components/layout/Layout"; 
 
 function App() {
   return (

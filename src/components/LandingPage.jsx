@@ -1,7 +1,7 @@
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Facebook, Twitter, Linkedin } from "lucide-react";
+import { Facebook, Twitter, Linkedin, UserRound } from "lucide-react";
 import { User, FileText } from "lucide-react";
 
 import { Mail, Phone } from "lucide-react";
@@ -23,7 +23,7 @@ import {
   CheckCircle,
   FileText as Document,
   LineChart,
-  MessageSquare,   // ✅ fixed here (was MessagesSquare)
+  MessageSquare,   
   ArrowRight,
   Search,
   Briefcase,
@@ -35,39 +35,53 @@ import {
 } from "lucide-react";
 
 const LandingPage = () => {
+ 
   const steps = [
     {
-      icon: <User className="w-6 h-6 text-red-500" />,
+      id: 1,
       title: "Account",
+      icon: User,
       description:
-        "You have to create an account here with the details and they must be true to get the jobs quickly and work effectively.",
+        "You have to create an account here with the details and they must be true to get the jobs quickly and works effectively.",
+      iconColor: "text-red-500",
     },
     {
-      icon: <Search className="w-6 h-6 text-blue-500" />,
+      id: 2,
       title: "Search Job",
+      icon: Search,
       description:
         "Search the job according to your interests and experiences and that matches the requirements for the job.",
+      iconColor: "text-blue-500",
     },
     {
-      icon: <FileText className="w-6 h-6 text-yellow-500" />,
+      id: 3,
       title: "CV/Resume",
+      icon: FileText,
       description:
         "Now you have to fill the given job applications with your recent CV/Resume where you are interested and will help you grow.",
+      iconColor: "text-orange-500",
     },
     {
-      icon: <CheckCircle className="w-6 h-6 text-green-500" />,
+      id: 4,
       title: "Apply",
+      icon: CheckCircle,
       description:
         "Apply to the job applications and make sure to check the location and time to not face problems later.",
+      iconColor: "text-green-500",
     },
-  ];
-
+  ]
+const jobs = Array(6).fill({
+    title: "Mathematics Teacher",
+    company: "Tulips School",
+    location: "Biratnagr, Nepal",
+    tags: ["Full Time", "Primary", "2-4 years"],
+  })
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="py-20 lg:py-32 bg-gradient-to-b from-blue-50/50 to-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-2 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
                 <h1 className="text-4xl lg:text-6xl font-bold text-foreground text-balance">
@@ -87,7 +101,7 @@ const LandingPage = () => {
                   className="bg-blue-600 hover:bg-blue-700 text-white text-base"
                 >
                   Join for Free
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  
                 </Button>
                 <Button
                   variant="outline"
@@ -114,7 +128,7 @@ const LandingPage = () => {
               <img
                 src="/professional-team-working-together-illustration.jpg"
                 alt="Professional team working together"
-                className="w-full h-auto rounded-2xl shadow-2xl"
+                className="w-full h-90 w-80 rounded-2xl shadow-2xl"
               />
             </div>
           </div>
@@ -122,27 +136,49 @@ const LandingPage = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-blue-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-lg text-gray-600 mb-2">How it works?</p>
-          <h2 className="text-3xl lg:text-4xl font-bold mb-12">
+      <section className="py-16 px-4 bg-gray-50">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-semibold text-gray-800 mb-4">How it works?</h2>
+          <h3 className="text-4xl font-bold text-gray-900">
             Follow <span className="text-blue-600">Easy</span> 4 Steps
-          </h2>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            {steps.map((step, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow text-left"
-              >
-                <div className="flex items-center mb-4">{step.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                <p className="text-gray-600 text-sm">{step.description}</p>
-              </div>
-            ))}
-          </div>
+          </h3>
         </div>
-      </section>
+
+        {/* Steps Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+          {steps.map((step, index) => (
+            <div key={step.id} className="relative">
+              <Card className="h-full bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <step.icon className={`w-6 h-6 ${step.iconColor}`} />
+                    <h4 className="text-xl font-semibold text-gray-900">{step.title}</h4>
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+                </CardContent>
+              </Card>
+
+              {/* Decorative Arrow - Only show between steps, not after the last one */}
+              {index < steps.length - 1 && (
+                <div className="hidden lg:block absolute -right-4 top-1/2 transform -translate-y-1/2 z-10">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="text-yellow-400">
+                    <path
+                      d="M8 16C8 16 12 12 16 16C20 20 24 16 24 16"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
       {/* Help Section */}
       <section className="py-16 bg-white">
@@ -208,6 +244,8 @@ const LandingPage = () => {
         </div>
       </section>
 
+  
+
       {/* Unlock Your Teaching Potential */}
       <section className="py-20 bg-primary text-black">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -242,6 +280,138 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+      {/* Recommended Section */}
+<section className="py-16 px-4 max-w-7xl mx-auto">
+      <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">Recommended Jobs</h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {jobs.map((job, index) => (
+          <Card key={index} className="p-6 hover:shadow-lg transition-shadow duration-200 border border-gray-200">
+            <CardContent className="p-0 space-y-4">
+              {/* Icon and Title */}
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-red-50 border-2 border-red-200 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
+              </div>
+
+              {/* Location */}
+              <p className="text-gray-600 text-base">
+                {job.company} {job.location}
+              </p>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2">
+                {job.tags.map((tag, tagIndex) => (
+                  <Badge
+                    key={tagIndex}
+                    variant="secondary"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 text-sm font-medium"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
+    {/* What our users say */}
+      <section className="py-20 bg-gradient-to-b from-blue-50/50 to-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-foreground font-color-blue">What Our Users Say</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-4">
+              Hear from our satisfied users about their experiences with Hirynn.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 relative h-80">
+            {[
+              {
+                name: "John Doe",
+                feedback: "Hirynn has transformed the way I find teaching opportunities!",
+                img: "/team3.png",
+              },
+              {
+                name: "Jane Smith",
+                feedback: "The platform is user-friendly and effective.",
+                img: "/team2.png",
+              },
+              {
+                name: "Emily Johnson",
+                feedback: "I love the resources available for professional development.",
+                img: "/users.png",
+              },
+            ].map((user, index) => (
+              <div
+                key={index}
+                className={`text-center transition-opacity duration-1000 absolute top-0 left-0 w-full ${index === 0 ? "opacity-100" : "opacity-0"
+                  }`}
+              >
+                <Avatar className="w-32 h-32 mx-auto mb-4">
+                  <AvatarImage src={user.img} alt={user.name} />
+                  <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <h3 className="text-xl font-semibold text-foreground">{user.name}</h3>
+                <p className="text-muted-foreground max-w-md mx-auto">{user.feedback}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* Unlocking Section */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+      <div className="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-12">
+        
+        {/* Image Left */}
+        <div className="flex-1 flex justify-center">
+          <img
+            src="/Black.png" // replace with your uploaded image path
+            alt="Hirynn App Showcase"
+            className="w-full max-w-md lg:max-w-lg"
+          />
+        </div>
+
+        {/* Text Right */}
+        <div className="flex-1 text-center lg:text-left">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Unlock Your Teaching Potential
+          </h2>
+          <p className="text-gray-600 leading-relaxed mb-4">
+            Hirynn App is designed for teachers and educational institutions in
+            Nepal to connect with the best opportunities. Discover teaching
+            jobs, apply easily, and access career resources to grow
+            professionally. Take the next step in your career today!
+          </p>
+
+          <h3 className="text-xl font-semibold mb-2">We Also Have an App</h3>
+          <p className="text-gray-600 leading-relaxed mb-6">
+            Use Hirynn on your Android device to explore job postings, apply to
+            your favorite schools, and stay updated with career resources
+            anytime, anywhere. All your teaching opportunities, in one place.
+          </p>
+
+          {/* Google Play Button */}
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block"
+          >
+            <img
+              src="/google-play.png" // replace with play store badge
+              alt="Get it on Google Play"
+              className="h-12"
+            />
+          </a>
+        </div>
+      </div>
+    </section>
     </div>
   );
 };

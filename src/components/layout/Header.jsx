@@ -16,7 +16,7 @@ const Header = () => {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <img src="/logo.png" alt="Hirynn Logo" className="h-5 w-5" />
               </div>
-              <span className="text-xl font-bold text-foreground">Hirynn</span>
+              <span className="text-4xl font-bold text-foreground">Hirynn</span>
             </div>
           </div>
 
