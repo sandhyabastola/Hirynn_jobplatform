@@ -20,16 +20,12 @@ const AboutPage = () => {
     <div className="min-h-screen bg-background">
 
       {/* Heading */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-blue-900 mb-4 text-left">
-          Shaping Future Together!
-        </h2>
-      </div>
-
-      {/* Quote + Image Side by Side */}
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-10 mb-16 px-6"></div>
+      <div className="flex flex-col lg:flex-row items-center gap-8">
         {/* Quote (Left) */}
         <div className="lg:w-1/2">
+          <h2 className="text-3xl sm:text-4xl font-bold text-blue-900 mb-4 text-left">
+            Shaping Future Together!
+          </h2>
           <p className="italic text-gray-600 text-left max-w-3xl">
             "At Hirynn, we believe education is the foundation of progress. Our
             platform is dedicated to connecting passionate teachers with the right
@@ -38,22 +34,21 @@ const AboutPage = () => {
             to create meaningful connections that empower both educators and
             learners to grow, achieve, and thrive."
           </p>
-        
+        </div>
 
         {/* Image (Right) */}
         <div className="lg:w-1/2 flex justify-center">
           <img
             src="/professional-team-working-together-illustration.jpg"
             alt="Professional team collaboration"
-            className="w-96 h-auto"
+            className="w-96 h-90"
           />
         </div>
       </div>
 
-      {/* Illustration + Paragraph Centered */}
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-10 mb-16 px-6">
-        {/* Text */}
-        <p className="text-gray-700 text-lg leading-relaxed max-w-2xl text-center">
+      {/* Paragraph Centered */}
+      <div className="w-full flex items-center justify-center text-center px-8">
+        <p className="text-gray-700 text-lg leading-relaxed max-w-2xl">
           At Hirynn, we are committed to empowering educators, supporting
           institutions, and strengthening education by building trusted
           connections. With fairness, transparency, and trust at our core, we
@@ -61,7 +56,6 @@ const AboutPage = () => {
           and schools find the right talent with ease.
         </p>
       </div>
-
 
       {/* Statistics Section */}
       <section className="py-20 bg-white">

@@ -78,62 +78,66 @@ const jobs = Array(6).fill({
   })
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-b from-blue-50/50 to-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-2 items-center">
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-4xl lg:text-6xl font-bold text-foreground text-balance">
-                  Welcome to
-                  <span className="text-primary block">Hirynn...</span>
-                </h1>
-                <p className="text-lg text-muted-foreground text-pretty max-w-md">
-                  Join thousands of professionals and institutions hiring and
-                  networking today. Professionals and institutions hiring and
-                  networking today.
-                </p>
-              </div>
+  {/* Hero Section */}
+<section className="pt-10 lg:pt-16 pb-20 lg:pb-28 bg-gradient-to-b from-blue-50/60 to-white">
+  <div className="container mx-auto px-6 lg:px-12">
+    <div className="grid lg:grid-cols-2 gap-12 items-center">
+      
+      {/* Left Content */}
+      <div className="space-y-8">
+        <div className="space-y-3">
+          <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight text-foreground">
+            Welcome to <span className="text-primary">Hirynn...</span>
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-lg">
+            Join thousands of professionals and institutions hiring and networking today. 
+            Find the right opportunities and connect with the future.
+          </p>
+        </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-blue-600 hover:bg-blue-700 text-white text-base"
-                >
-                  Join for Free
-                  
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-base bg-transparent"
-                >
-                  Find Jobs
-                </Button>
-              </div>
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button
+            size="lg"
+            className="bg-blue-600 hover:bg-blue-700 text-white text-base px-8 py-3 rounded-xl shadow-lg"
+          >
+            Join for Free
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            className="text-base border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-xl"
+          >
+            Find Jobs
+          </Button>
+        </div>
 
-              <div className="flex items-center space-x-8 text-sm text-muted-foreground">
-                <div className="flex items-center space-x-2">
-                  <Users className="h-4 w-4" />
-                  <span>10K+ Users</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Briefcase className="h-4 w-4" />
-                  <span>5K+ Jobs</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative">
-              <img
-                src="/professional-team-working-together-illustration.jpg"
-                alt="Professional team working together"
-                className="w-full h-90 w-80 rounded-2xl shadow-2xl"
-              />
-            </div>
+        {/* Stats */}
+        <div className="flex items-center space-x-10 text-sm text-muted-foreground">
+          <div className="flex items-center space-x-2">
+            <Users className="h-5 w-5 text-blue-600" />
+            <span className="font-medium">10K+ Users</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Briefcase className="h-5 w-5 text-blue-600" />
+            <span className="font-medium">5K+ Jobs</span>
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* Right Image */}
+      <div className="relative flex justify-center lg:justify-end">
+        <img
+          src="/professional-team-working-together-illustration.jpg"
+          alt="Professional team working together"
+          className="max-w-md lg:max-w-lg rounded-2xl shadow-2xl"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
       {/* How It Works Section */}
       <section className="py-16 px-4 bg-gray-50">
@@ -283,40 +287,33 @@ const jobs = Array(6).fill({
       {/* Recommended Section */}
 <section className="py-16 px-4 max-w-7xl mx-auto">
       <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">Recommended Jobs</h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {jobs.map((job, index) => (
-          <Card key={index} className="p-6 hover:shadow-lg transition-shadow duration-200 border border-gray-200">
-            <CardContent className="p-0 space-y-4">
-              {/* Icon and Title */}
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-red-50 border-2 border-red-200 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-red-500" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
-              </div>
-
-              {/* Location */}
-              <p className="text-gray-600 text-base">
-                {job.company} {job.location}
-              </p>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2">
-                {job.tags.map((tag, tagIndex) => (
-                  <Badge
-                    key={tagIndex}
-                    variant="secondary"
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 text-sm font-medium"
-                  >
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+ <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {jobs.map((job) => (
+          <div
+            key={job.id}
+            className="border rounded-xl p-5 shadow-sm hover:shadow-md transition"
+          >
+            <div className="flex items-center mb-3">
+              <img
+                src="Class 10.png"
+                alt="Logo"
+                className="w-10 h-10 mr-3"
+              />
+              <h2 className="font-bold text-lg">{job.title}</h2>
+            </div>
+            <p className="text-gray-600">{job.company} • {job.location}</p>
+            <div className="flex flex-wrap gap-2 mt-4">
+              <span className="bg-blue-800 text-white text-sm px-3 py-1 rounded-md">
+                {job.type}
+              </span>
+              <span className="bg-blue-800 text-white text-sm px-3 py-1 rounded-md">
+                {job.level}
+              </span>
+              <span className="bg-blue-800 text-white text-sm px-3 py-1 rounded-md">
+                {job.experience}
+              </span>
+            </div>
+          </div>
         ))}
       </div>
     </section>

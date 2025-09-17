@@ -1,349 +1,383 @@
 "use client"
 
-import { useState } from "react"
-import { Button } from "./ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
-import { Badge } from "./ui/badge"
-import Layout from "../components/layout/Layout"; // adjust the path based on your folder structure
-import { Separator } from "./ui/separator"
-import {
-  ArrowLeft,
-  MapPin,
-  Clock,
-  DollarSign,
-  Building,
-  Users,
-  Calendar,
-  Heart,
-  Share2,
-  Briefcase,
-  CheckCircle,
-  Star,
-} from "lucide-react"
+import React, { useState } from "react"
+import { useParams, Link } from "react-router-dom"
 
-const JobDetailPage = ({ job: propJob, onBack }) => {
-  // Use the passed-in job prop if available; otherwise, fallback to default
-  const job = propJob || {
+const JobDescription = () => {
+  const { id } = useParams()
+  const [applicationData, setApplicationData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    coverLetter: "",
+    experience: "",
+    resume: null,
+  })
+
+  // Mock job data - in real app, this would come from API
+  const job = {
     id: 1,
-    title: "Senior Frontend Developer",
-    company: "TechCorp Inc.",
-    location: "San Francisco, CA",
-    salary: "$120,000 - $150,000",
+    title: "Senior Software Engineer",
+    company: "TechCorp Nepal",
+    location: "Kathmandu, Nepal",
+    salary: "NPR 80,000 - 120,000",
     type: "Full-time",
-    posted: "2 days ago",
-    applicants: "47 applicants",
-    skills: ["React", "TypeScript", "Node.js", "GraphQL", "AWS", "Docker"],
-    description: `We are looking for a Senior Frontend Developer to join our innovative team building next-generation web applications. You'll work with cutting-edge technologies and collaborate with talented designers and backend engineers to create exceptional user experiences.
-
-As a Senior Frontend Developer, you'll be responsible for architecting and implementing complex user interfaces, mentoring junior developers, and contributing to our technical roadmap. We value clean code, performance optimization, and accessibility.`,
-    responsibilities: [
-      "Develop and maintain high-quality React applications",
-      "Collaborate with UX/UI designers to implement pixel-perfect designs",
-      "Write clean, maintainable, and well-tested code",
-      "Mentor junior developers and conduct code reviews",
-      "Optimize applications for maximum speed and scalability",
-      "Stay up-to-date with the latest frontend technologies and best practices",
-    ],
+    postedDate: "2 days ago",
+    deadline: "March 15, 2024",
+    tags: ["React", "TypeScript", "Node.js", "MongoDB"],
+    description: `We are looking for a Senior Software Engineer to join our growing team. You will be responsible for developing and maintaining web applications using modern technologies.`,
     requirements: [
-      "5+ years of experience in frontend development",
-      "Expert knowledge of React, TypeScript, and modern JavaScript",
-      "Experience with state management libraries (Redux, Zustand)",
-      "Proficiency in CSS-in-JS solutions and responsive design",
-      "Experience with testing frameworks (Jest, React Testing Library)",
-      "Knowledge of build tools and CI/CD pipelines",
-      "Strong problem-solving skills and attention to detail",
-      "Excellent communication and teamwork abilities",
+      "5+ years of experience in software development",
+      "Strong proficiency in React and TypeScript",
+      "Experience with Node.js and Express",
+      "Knowledge of database systems (MongoDB, PostgreSQL)",
+      "Experience with version control (Git)",
+      "Strong problem-solving skills",
+      "Excellent communication skills",
+      "Bachelor's degree in Computer Science or related field",
+    ],
+    responsibilities: [
+      "Develop and maintain web applications using React and TypeScript",
+      "Build RESTful APIs using Node.js and Express",
+      "Collaborate with cross-functional teams to define and implement features",
+      "Write clean, maintainable, and well-documented code",
+      "Participate in code reviews and provide constructive feedback",
+      "Troubleshoot and debug applications",
+      "Stay up-to-date with emerging technologies and best practices",
     ],
     benefits: [
-      "Competitive salary and equity package",
-      "Comprehensive health, dental, and vision insurance",
-      "Flexible work arrangements and remote options",
-      "Professional development budget ($3,000/year)",
-      "Unlimited PTO and sabbatical opportunities",
-      "State-of-the-art equipment and workspace",
-      "Team building events and company retreats",
+      "Competitive salary and performance bonuses",
+      "Health insurance coverage",
+      "Flexible working hours",
+      "Remote work options",
+      "Professional development opportunities",
+      "Annual leave and sick leave",
+      "Team building activities",
     ],
-    companyInfo: {
-      name: "TechCorp Inc.",
-      size: "500-1000 employees",
-      industry: "Technology",
-      founded: "2015",
-      description:
-        "TechCorp is a leading technology company focused on building innovative solutions that transform how businesses operate. We're passionate about creating products that make a real difference in people's lives.",
-    },
   }
 
-  const [isBookmarked, setIsBookmarked] = useState(false)
-
   const relatedJobs = [
-    {
-      id: 2,
-      title: "Frontend Developer",
-      company: "StartupXYZ",
-      location: "Austin, TX",
-      salary: "$90k - $120k",
-      type: "Full-time",
-    },
-    {
-      id: 3,
-      title: "React Developer",
-      company: "WebTech Solutions",
-      location: "Remote",
-      salary: "$100k - $130k",
-      type: "Remote",
-    },
-    {
-      id: 4,
-      title: "Full Stack Developer",
-      company: "InnovateLab",
-      location: "New York, NY",
-      salary: "$110k - $140k",
-      type: "Full-time",
-    },
+    { id: 2, title: "Frontend Developer", company: "WebTech Solutions", location: "Kathmandu" },
+    { id: 3, title: "Full Stack Developer", company: "Digital Agency", location: "Pokhara" },
+    { id: 4, title: "Backend Developer", company: "StartupHub", location: "Lalitpur" },
+    { id: 5, title: "React Developer", company: "CodeCraft", location: "Kathmandu" },
+    { id: 6, title: "Software Engineer", company: "TechVision", location: "Bhaktapur" },
+    { id: 7, title: "JavaScript Developer", company: "InnovateNow", location: "Kathmandu" },
   ]
 
-  return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Back Button */}
-            <Button variant="ghost" className="p-0 h-auto text-muted-foreground hover:text-foreground">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Jobs
-            </Button>
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setApplicationData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
 
-            {/* Job Header */}
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <h1 className="text-3xl lg:text-4xl font-bold text-foreground">{job.title}</h1>
-                <div className="flex items-center space-x-4 text-muted-foreground">
-                  <div className="flex items-center space-x-2">
-                    <Building className="h-4 w-4" />
-                    <span className="font-medium text-foreground">{job.company}</span>
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0] || null
+    setApplicationData((prev) => ({
+      ...prev,
+      resume: file,
+    }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log("Application submitted:", applicationData)
+    alert("Application submitted successfully!")
+  }
+
+  return (
+    <div className="job-description-page">
+      {/* Breadcrumb */}
+      <section style={{ backgroundColor: "#f8f9fa", padding: "1rem 0" }}>
+        <div className="container">
+          <nav style={{ fontSize: "0.9rem", color: "#7f8c8d" }}>
+            <Link to="/" style={{ color: "#4A90E2", textDecoration: "none" }}>
+              Home
+            </Link>
+            {" > "}
+            <Link to="/jobs" style={{ color: "#4A90E2", textDecoration: "none" }}>
+              Jobs
+            </Link>
+            {" > "}
+            <span>{job.title}</span>
+          </nav>
+        </div>
+      </section>
+
+      <section style={{ padding: "2rem 0" }}>
+        <div className="container">
+          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "3rem" }}>
+            {/* Main Content */}
+            <div>
+              {/* Job Header */}
+              <div className="card" style={{ marginBottom: "2rem" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "start",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  <div>
+                    <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem", color: "#2c3e50" }}>{job.title}</h1>
+                    <div style={{ fontSize: "1.2rem", color: "#4A90E2", fontWeight: "500", marginBottom: "1rem" }}>
+                      {job.company}
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <MapPin className="h-4 w-4" />
-                    <span>{job.location}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Clock className="h-4 w-4" />
-                    <span>{job.posted}</span>
+                  <div style={{ textAlign: "right", color: "#7f8c8d", fontSize: "0.9rem" }}>
+                    <div>Posted: {job.postedDate}</div>
+                    <div>Deadline: {job.deadline}</div>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-2">
-                    <DollarSign className="h-4 w-4 text-primary" />
-                    <span className="text-xl font-semibold text-primary">{job.salary}</span>
-                  </div>
-                  <Badge variant="secondary">{job.type}</Badge>
-                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                    <Users className="h-4 w-4" />
-                    <span>{job.applicants}</span>
-                  </div>
+
+                <div style={{ display: "flex", gap: "2rem", marginBottom: "1.5rem", color: "#7f8c8d" }}>
+                  <span>📍 {job.location}</span>
+                  <span>💰 {job.salary}</span>
+                  <span>⏰ {job.type}</span>
+                </div>
+
+                <div className="job-tags" style={{ marginBottom: "1.5rem" }}>
+                  {job.tags.map((tag, index) => (
+                    <span key={index} className="job-tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div style={{ display: "flex", gap: "1rem" }}>
+                  <button className="btn btn-primary">Apply Now</button>
+                  <button className="btn btn-outline">Save Job</button>
+                  <button className="btn btn-secondary">Share</button>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex items-center space-x-4">
-                <Button size="lg" className="flex-1 sm:flex-none">
-                  Apply Now
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => setIsBookmarked(!isBookmarked)}
-                  className={isBookmarked ? "text-primary border-primary" : ""}
-                >
-                  <Heart className={`h-4 w-4 mr-2 ${isBookmarked ? "fill-current" : ""}`} />
-                  {isBookmarked ? "Saved" : "Save"}
-                </Button>
-                <Button variant="outline" size="lg">
-                  <Share2 className="h-4 w-4 mr-2" />
-                  Share
-                </Button>
+              {/* Job Description */}
+              <div className="card" style={{ marginBottom: "2rem" }}>
+                <h2 style={{ marginBottom: "1rem", color: "#2c3e50" }}>Job Description</h2>
+                <p style={{ color: "#7f8c8d", lineHeight: "1.8", marginBottom: "2rem" }}>{job.description}</p>
+
+                <h3 style={{ marginBottom: "1rem", color: "#2c3e50" }}>Key Responsibilities</h3>
+                <ul style={{ color: "#7f8c8d", lineHeight: "1.8", marginBottom: "2rem", paddingLeft: "1.5rem" }}>
+                  {job.responsibilities.map((responsibility, index) => (
+                    <li key={index} style={{ marginBottom: "0.5rem" }}>
+                      {responsibility}
+                    </li>
+                  ))}
+                </ul>
+
+                <h3 style={{ marginBottom: "1rem", color: "#2c3e50" }}>Requirements</h3>
+                <ul style={{ color: "#7f8c8d", lineHeight: "1.8", marginBottom: "2rem", paddingLeft: "1.5rem" }}>
+                  {job.requirements.map((requirement, index) => (
+                    <li key={index} style={{ marginBottom: "0.5rem" }}>
+                      {requirement}
+                    </li>
+                  ))}
+                </ul>
+
+                <h3 style={{ marginBottom: "1rem", color: "#2c3e50" }}>Benefits</h3>
+                <ul style={{ color: "#7f8c8d", lineHeight: "1.8", paddingLeft: "1.5rem" }}>
+                  {job.benefits.map((benefit, index) => (
+                    <li key={index} style={{ marginBottom: "0.5rem" }}>
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Application Form */}
+              <div className="card">
+                <h2 style={{ marginBottom: "1.5rem", color: "#2c3e50" }}>Apply for this Position</h2>
+
+                <form onSubmit={handleSubmit}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+                    <div className="form-group">
+                      <label className="form-label">Full Name *</label>
+                      <input
+                        type="text"
+                        name="fullName"
+                        className="form-input"
+                        value={applicationData.fullName}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">Email Address *</label>
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-input"
+                        value={applicationData.email}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+                    <div className="form-group">
+                      <label className="form-label">Phone Number *</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        className="form-input"
+                        value={applicationData.phone}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">Years of Experience *</label>
+                      <select
+                        name="experience"
+                        className="form-select"
+                        value={applicationData.experience}
+                        onChange={handleInputChange}
+                        required
+                      >
+                        <option value="">Select experience</option>
+                        <option value="0-1">0-1 years</option>
+                        <option value="2-3">2-3 years</option>
+                        <option value="4-5">4-5 years</option>
+                        <option value="6-10">6-10 years</option>
+                        <option value="10+">10+ years</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Resume/CV *</label>
+                    <input
+                      type="file"
+                      name="resume"
+                      className="form-input"
+                      accept=".pdf,.doc,.docx"
+                      onChange={handleFileChange}
+                      required
+                    />
+                    <small style={{ color: "#7f8c8d", fontSize: "0.9rem" }}>
+                      Accepted formats: PDF, DOC, DOCX (Max 5MB)
+                    </small>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Cover Letter</label>
+                    <textarea
+                      name="coverLetter"
+                      className="form-textarea"
+                      placeholder="Tell us why you're the perfect fit for this role..."
+                      value={applicationData.coverLetter}
+                      onChange={handleInputChange}
+                      rows={6}
+                    />
+                  </div>
+
+                  <div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>
+                    <button type="submit" className="btn btn-primary">
+                      Submit Application
+                    </button>
+                    <button type="button" className="btn btn-secondary">
+                      Save as Draft
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
 
-            {/* Job Description */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Job Description</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="whitespace-pre-line text-muted-foreground">{job.description}</div>
-              </CardContent>
-            </Card>
-
-            {/* Responsibilities */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Key Responsibilities</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {job.responsibilities.map((responsibility, index) => (
-                    <li key={index} className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{responsibility}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Requirements */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Requirements</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {job.requirements.map((requirement, index) => (
-                    <li key={index} className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{requirement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Benefits */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Benefits & Perks</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {job.benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start space-x-3">
-                      <Star className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Skills */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Required Skills</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {job.skills.map((skill, index) => (
-                    <Badge key={index} variant="secondary" className="text-sm">
-                      {skill}
-                    </Badge>
-                  ))}
+            {/* Sidebar */}
+            <div>
+              {/* Company Info */}
+              <div className="card" style={{ marginBottom: "2rem" }}>
+                <h3 style={{ marginBottom: "1rem", color: "#2c3e50" }}>About {job.company}</h3>
+                <div
+                  style={{
+                    width: "80px",
+                    height: "80px",
+                    backgroundColor: "#e9ecef",
+                    borderRadius: "10px",
+                    marginBottom: "1rem",
+                  }}
+                ></div>
+                <p style={{ color: "#7f8c8d", lineHeight: "1.6", marginBottom: "1rem" }}>
+                  TechCorp Nepal is a leading technology company specializing in innovative software solutions. We're
+                  committed to creating cutting-edge products that make a difference.
+                </p>
+                <div style={{ fontSize: "0.9rem", color: "#7f8c8d" }}>
+                  <div style={{ marginBottom: "0.5rem" }}>🏢 Technology</div>
+                  <div style={{ marginBottom: "0.5rem" }}>👥 50-200 employees</div>
+                  <div style={{ marginBottom: "0.5rem" }}>📍 Kathmandu, Nepal</div>
+                  <div>🌐 www.techcorp.com.np</div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Apply Card */}
-            <Card className="sticky top-24">
-              <CardHeader>
-                <CardTitle>Apply for this position</CardTitle>
-                <CardDescription>Join {job.company} and advance your career</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <Button className="w-full" size="lg">
-                  Apply Now
-                </Button>
-                <Button variant="outline" className="w-full bg-transparent">
-                  Save for Later
-                </Button>
-                <Separator />
-                <div className="space-y-2 text-sm text-muted-foreground">
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="h-4 w-4" />
-                    <span>Posted {job.posted}</span>
+              {/* Job Summary */}
+              <div className="card" style={{ marginBottom: "2rem" }}>
+                <h3 style={{ marginBottom: "1rem", color: "#2c3e50" }}>Job Summary</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ color: "#7f8c8d" }}>Job Type:</span>
+                    <span style={{ fontWeight: "500" }}>{job.type}</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Users className="h-4 w-4" />
-                    <span>{job.applicants}</span>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ color: "#7f8c8d" }}>Salary:</span>
+                    <span style={{ fontWeight: "500" }}>{job.salary}</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Briefcase className="h-4 w-4" />
-                    <span>{job.type}</span>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ color: "#7f8c8d" }}>Location:</span>
+                    <span style={{ fontWeight: "500" }}>{job.location}</span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ color: "#7f8c8d" }}>Posted:</span>
+                    <span style={{ fontWeight: "500" }}>{job.postedDate}</span>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span style={{ color: "#7f8c8d" }}>Deadline:</span>
+                    <span style={{ fontWeight: "500" }}>{job.deadline}</span>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
 
-            {/* Company Info */}
-            <Card>
-              <CardHeader>
-                <CardTitle>About {job.companyInfo.name}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">{job.companyInfo.description}</p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Industry:</span>
-                    <span className="font-medium">{job.companyInfo.industry}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Company size:</span>
-                    <span className="font-medium">{job.companyInfo.size}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Founded:</span>
-                    <span className="font-medium">{job.companyInfo.founded}</span>
-                  </div>
+              {/* Related Jobs */}
+              <div className="card">
+                <h3 style={{ marginBottom: "1rem", color: "#2c3e50" }}>Related Jobs</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  {relatedJobs.map((relatedJob) => (
+                    <Link
+                      key={relatedJob.id}
+                      to={`/jobs/${relatedJob.id}`}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <div
+                        style={{
+                          padding: "1rem",
+                          border: "1px solid #e9ecef",
+                          borderRadius: "8px",
+                          transition: "all 0.3s ease",
+                        }}
+                      >
+                        <div style={{ fontWeight: "500", color: "#2c3e50", marginBottom: "0.25rem" }}>
+                          {relatedJob.title}
+                        </div>
+                        <div style={{ color: "#4A90E2", fontSize: "0.9rem", marginBottom: "0.25rem" }}>
+                          {relatedJob.company}
+                        </div>
+                        <div style={{ color: "#7f8c8d", fontSize: "0.9rem" }}>📍 {relatedJob.location}</div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-                <Button variant="outline" className="w-full bg-transparent">
-                  View Company Profile
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Related Jobs */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Similar Jobs</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {relatedJobs.map((relatedJob) => (
-                  <div key={relatedJob.id} className="space-y-2 p-3 rounded-lg border hover:bg-muted/50 cursor-pointer">
-                    <h4 className="font-medium text-sm">{relatedJob.title}</h4>
-                    <p className="text-xs text-muted-foreground">{relatedJob.company}</p>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-muted-foreground">{relatedJob.location}</span>
-                      <Badge variant="outline" className="text-xs">
-                        {relatedJob.type}
-                      </Badge>
-                    </div>
-                    <p className="text-xs font-medium text-primary">{relatedJob.salary}</p>
-                  </div>
-                ))}
-                <Button variant="outline" className="w-full bg-transparent">
-                  View All Similar Jobs
-                </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="min-h-screen bg-background">
-      {onBack && (
-        <Button variant="ghost" onClick={onBack}>
-          ← Back to Jobs
-        </Button>
-      )}
-      <h1 className="text-3xl font-bold">{job.title}</h1>
-      <p>{job.description}</p>
-      {/* Rest of your JobDetailPage content */}
-    </div>
-     
+      </section>
     </div>
   )
 }
 
-export default JobDetailPage
+export default JobDescription

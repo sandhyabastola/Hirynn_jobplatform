@@ -9,25 +9,54 @@ const Header = () => {
   return (
     <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <img src="/logo.png" alt="Hirynn Logo" className="h-5 w-5" />
-              </div>
-              <span className="text-4xl font-bold text-foreground">Hirynn</span>
-            </div>
-          </div>
+         <div className="flex items-center space-x-2">
+  <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+    <img src="/logo.png" alt="Hirynn Logo" className="h-5 w-5" />
+  </div>
+  <span className="text-1xl font-bold text-foreground">Hirynn</span>
+</div>
+
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Home</Link>
-            <Link to="/jobs" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Jobs</Link>
-            <Link to="/institutions" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Institutions</Link>
-            <Link to="/about" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">About Us</Link>
-            <Link to="/contact" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Contact Us</Link>
-          </nav>
+<nav className="hidden md:flex items-center space-x-8">
+  <Link 
+    to="/" 
+    className="relative text-sm font-medium text-foreground hover:text-primary transition-colors group"
+  >
+    Home
+    <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+  </Link>
+  <Link 
+    to="/jobs" 
+    className="relative text-sm font-medium text-muted-foreground hover:text-primary transition-colors group"
+  >
+    Jobs
+    <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+  </Link>
+  <Link 
+    to="/institutions" 
+    className="relative text-sm font-medium text-muted-foreground hover:text-primary transition-colors group"
+  >
+    Institutions
+    <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+  </Link>
+  <Link 
+    to="/about" 
+    className="relative text-sm font-medium text-muted-foreground hover:text-primary transition-colors group"
+  >
+    About Us
+    <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+  </Link>
+  <Link 
+    to="/contact" 
+    className="relative text-sm font-medium text-muted-foreground hover:text-primary transition-colors group"
+  >
+    Contact Us
+    <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+  </Link>
+</nav>
 
           {/* Auth buttons / User Menu */}
           <div className="flex items-center space-x-4">
